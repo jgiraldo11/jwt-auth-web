@@ -1,9 +1,19 @@
 "use client"
-import { useState } from "react"
+import { useState, useContext, useEffect } from "react"
+import { redirect, useRouter } from "next/navigation"
+import { AuthContext } from "@/context/AuthContext"
 
 export default function Login() {
 
+  const { handleLogin, user } = useContext(AuthContext)
+  const router = useRouter()
   const[error, setError] = useState()
+
+  useEffect(() => {
+    if(user) {
+      redirect("/dashboard")
+    }
+  }, [])
 
   const handleLoginForm = (e) => {
     e.preventDefault()
@@ -25,6 +35,8 @@ export default function Login() {
         return
       }
       // store user and token
+      handleLogin(data) 
+      router.push("/dashboard") 
     })
     // handle any errors
     .catch(err => {

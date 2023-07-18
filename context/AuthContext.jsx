@@ -1,5 +1,5 @@
 "use client"
-import { createContext, useState } from "react"
+import { createContext, useState, useEffect } from "react"
 
 export const AuthContext = createContext()
 
@@ -21,7 +21,7 @@ export function AuthProvider({ children }) {
     setUser (data.user)
     setToken (data.token)
     sessionStorage.setItem("user", JSON.stringify(data.user))
-    sessionStorage.setItem("user", JSON.stringify(data.token))
+    sessionStorage.setItem("token", JSON.stringify(data.token))
   }
 
   const handleLogout = () => {
